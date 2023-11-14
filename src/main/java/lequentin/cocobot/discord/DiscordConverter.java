@@ -1,15 +1,14 @@
 package lequentin.cocobot.discord;
 
-import lequentin.cocobot.domain.Message;
+import discord4j.core.object.entity.Message;
 import lequentin.cocobot.domain.User;
 
 public class DiscordConverter {
 
     private static final String KNOWN_USER_TAG = "dannyp"; // Replace with the actual tag if available
 
-    public Message toDomain(discord4j.core.object.entity.Message discordMessage) {
-        discord4j.core.object.entity.User discordUser = discordMessage.getAuthor()
-                .orElse(null);
+    public lequentin.cocobot.domain.Message toDomain(Message discordMessage) {
+        discord4j.core.object.entity.User discordUser = discordMessage.getAuthor().orElse(null);
 
         User author;
         if (discordUser != null) {
@@ -24,6 +23,7 @@ public class DiscordConverter {
             author = new User("Unknown");
         }
 
-        return new Message(author, discordMessage.getTimestamp(), discordMessage.getContent());
+        // Assuming getContent() and getTimestamp() are the correct methods
+        return new lequentin.cocobot.domain.Message(author, discordMessage.getTimestamp(), discordMessage.getContent());
     }
 }

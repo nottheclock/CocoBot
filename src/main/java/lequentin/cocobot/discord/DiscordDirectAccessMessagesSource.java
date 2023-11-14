@@ -35,7 +35,8 @@ public class DiscordDirectAccessMessagesSource implements MessagesSource {
                     System.err.println("Not parsing channel " + channel.getName() + " because cannot get last message id.");
                     return Flux.empty();
                 })
-                .filter(msg -> !msg.getContent().isBlank())
+                // Update to getText() method
+                .filter(msg -> !msg.getContent().isEmpty()) // getContent() is likely correct here if msg is discord4j.core.object.entity.Message
                 .map(converter::toDomain);
     }
 }

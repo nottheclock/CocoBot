@@ -18,31 +18,41 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.discord4j:discord4j-core:3.1.3'
+    implementation 'com.discord4j:discord4j-core:3.2.6'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.1'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1'
     implementation 'org.apache.commons:commons-lang3:3.0'
 
+    // JUnit Jupiter API for writing tests
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    // JUnit Jupiter Params for parameterized tests
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
+    // AssertJ for fluent assertions
     testImplementation 'org.assertj:assertj-core:3.22.0'
+    // Mockito for mocking in tests
     testImplementation 'org.mockito:mockito-core:4.3.1'
     testImplementation 'org.mockito:mockito-junit-jupiter:4.3.1'
+    // Reactor Test for testing reactive types
     testImplementation 'io.projectreactor:reactor-test:3.4.2'
 
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    // JUnit Jupiter Engine for running the tests
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
+// Apply shadow plugin for creating fat/uber JARs
 apply plugin: 'com.github.johnrengelman.shadow'
 
+// Configure the test task to use JUnit Platform
 test {
     useJUnitPlatform()
 }
 
+// Application plugin configuration
 application {
     mainClass = 'lequentin.cocobot.CocoApplicationMain'
 }
 
+// Task to synchronize storage
 task('synchronise', dependsOn: 'classes', type: JavaExec) {
     mainClass = 'lequentin.cocobot.SynchroniseStorageApplicationMain'
     classpath = sourceSets.main.runtimeClasspath
